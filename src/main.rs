@@ -1,3 +1,5 @@
+slint::include_modules!();
 fn main() {
-    println!("Hello, world!");
+    let sabui = Saber::new().expect("unkown error").run();
+
 }

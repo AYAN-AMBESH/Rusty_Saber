@@ -1,0 +1,30 @@
+import { Button, GridBox, LineEdit, VerticalBox, CheckBox } from "std-widgets.slint";
+
+export component Saber inherits Window {
+    background: blue;
+    preferred-width: 500px;
+    preferred-height: 200px;
+    callback dir(string) -> string;
+
+    VerticalBox {
+            LineEdit {
+                width: 180px; // Adjust width as needed
+                placeholder-text: "Enter text here";
+                accepted(text) => {self.text}
+            }
+            CheckBox {
+                property <bool> isChecked;
+                text: "Enable processing";
+                checked: self.isChecked;
+                toggled() => {self.isChecked;}
+            }
+            Button {
+                property <bool> isChecked;
+                text: "Process";
+                enabled: self.isChecked; 
+                clicked => {
+                    //
+                }
+            }
+        }
+}
