@@ -2,7 +2,6 @@ use std::fs::OpenOptions;
 use std::io::Read;
 use std::{fs, io};
 use yara_x;
-use yara_x::{ScanError, ScanResults};
 
 struct Scandir {
     dir_to_scan: &'static str,
@@ -40,7 +39,12 @@ impl Scandir {
         for files in &entries {
             // println!("Path for file: {}", files.display());
             let mut scanner = yara_x::Scanner::new(&rules);
-            let scan_results: Result<ScanResults, ScanError> = scanner.scan_file(files);
+            let scan_results = scanner.scan_file(files).unwrap();
+            let matching_rule = scan_results.matching_rules();
+            let m = matching_rule.len();
+            if m == 1 {
+                println!("Virus found: {}", files.display());
+            }
         }
 
         Ok(())
